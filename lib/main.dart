@@ -2,7 +2,7 @@ import 'dart:math' show Random;
 
 import 'package:flutter/material.dart';
 
-Random random = new Random();
+Random random = Random();
 
 void main() {
   runApp(const MyApp());
@@ -38,12 +38,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController Tcontroller = new TextEditingController();
+    final TextEditingController tcontroller = TextEditingController();
     return Form(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Guess my number',
             //  style: TextStyle(color: Colors.white),
           ),
@@ -51,81 +51,76 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: <Widget>[
-            Text(
+            const Text(
               'I\'m thinking of a number between 1 and 100.',
               textAlign: TextAlign.center,
               style: TextStyle(height: 1, fontSize: 26),
             ),
-            Text(
+            const Text(
               'It\'s your turn to guess my number!\n',
               textAlign: TextAlign.center,
               style: TextStyle(height: 2, fontSize: 20),
             ),
             if (correct == true)
-              Text('You guessed ${currentNumber}\nYou guessed right!',
+              Text('You guessed $currentNumber\nYou guessed right!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       height: 1, fontSize: 29, color: Colors.black45)),
             if (tryLower == true)
-              Text('You guessed ${currentNumber}\nTry lower!\n',
+              Text('You guessed $currentNumber\nTry lower!\n',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       height: 1, fontSize: 29, color: Colors.black45)),
             if (tryHigher == true)
-              Text('You guessed ${currentNumber}\nTry higher!\n',
+              Text('You guessed $currentNumber\nTry higher!\n',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       height: 1, fontSize: 29, color: Colors.black45)),
-            Text(
+            const Text(
               'Try a number!',
               textAlign: TextAlign.center,
               style: TextStyle(height: 1, fontSize: 26, color: Colors.black45),
             ),
-            if (enableTextField == true) // cum facem sa nu mai putem scrie in textfield DAR sa ramana pe ecran?
+            if (enableTextField ==
+                true) // cum facem sa nu mai putem scrie in textfield DAR sa ramana pe ecran?
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  keyboardType: TextInputType.numberWithOptions(),
-                  controller: Tcontroller,
-                  onChanged: (value) {
+                  keyboardType: const TextInputType.numberWithOptions(),
+                  controller: tcontroller,
+                  onChanged: (String value) {
                     correct = false;
                     tryHigher = false;
                     tryLower = false;
                     currentNumber = int.parse(value);
                     print(currentNumber);
-                    print('Correct= ${correctNumber}');
+                    print('Correct= $correctNumber');
                   },
                 ),
               ),
             if (showGuessButton == true)
               Container(
                 margin:
-                    EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 50),
-                decoration: BoxDecoration(
+                    const EdgeInsets.only(left: 30, top: 10, right: 30, bottom: 50),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
+
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: FlatButton(
-                      child: Text('Guess!'), // nu am stiut sa pun Try a number,textfieldul si butonul de Guess intr-un singur chenar
+                      child: const Text('Guess!'),
+                      // nu am stiut sa pun Try a number,textfieldul si butonul de Guess intr-un singur chenar
                       color: Colors.blue,
                       textColor: Colors.white,
                       splashColor: Colors.white,
                       onPressed: () {
-                        Tcontroller.clear();
+                        tcontroller.clear();
                         setState(() {
                           if (currentNumber == correctNumber)
                             correct = true;
@@ -141,18 +136,18 @@ class _HomePageState extends State<HomePage> {
                             tryLower = false;
                         });
                         if (correct == true)
-                          return showDialog(
+                          return showDialog<void>(
                             context: context,
-                            builder: (ctx) => AlertDialog(
-                              title: Text("You guessed right!"),
-                              content: Text("It was ${currentNumber}"),
+                            builder: (BuildContext ctx) => AlertDialog(
+                              title: const Text('You guessed right!'),
+                              content: Text('It was $currentNumber'),
                               actions: <Widget>[
                                 FlatButton(
                                   onPressed: () {
                                     correctNumber = random.nextInt(100) + 1;
                                     Navigator.of(ctx).pop();
                                   },
-                                  child: Text("Try again!"),
+                                  child: const Text('Try again!'),
                                 ),
                                 FlatButton(
                                   onPressed: () {
@@ -162,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                                     correct = false;
                                     Navigator.of(ctx).pop();
                                   },
-                                  child: Text("OK"),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             ),
@@ -172,7 +167,7 @@ class _HomePageState extends State<HomePage> {
               ),
             if (showResetButton == true)
               FlatButton(
-                  child: Text('Reset'),
+                  child: const Text('Reset'),
                   color: Colors.blue,
                   textColor: Colors.white,
                   splashColor: Colors.white,

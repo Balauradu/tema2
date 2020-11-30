@@ -2,7 +2,7 @@ import 'dart:math' show Random;
 
 import 'package:flutter/material.dart';
 
-Random random = new Random();
+Random random = Random();
 
 void main() {
   runApp(const MyApp());
@@ -31,35 +31,43 @@ class _HomePageState extends State<HomePage> {
   String popUpMessage = '';
 
   bool isCube(int n) {
-    if (n == 0) return true;
-    if (n == 1) return true;
+    if (n == 0)
+      return true;
+    if (n == 1)
+      return true;
 
     for (int i = 2; i <= n; i++) {
-      if (n == i * i * i) return true;
-      if (n < i * i * i) return false;
+      if (n == i * i * i)
+        return true;
+      if (n < i * i * i)
+        return false;
     }
 
     return false;
   }
 
   bool isSquare(int n) {
-    if (n == 0) return true;
-    if (n == 1) return true;
+    if (n == 0)
+      return true;
+    if (n == 1)
+      return true;
     for (int i = 2; i <= n; i++) {
-      if (n == i * i) return true;
-      if (n < i * i) return false;
+      if (n == i * i)
+        return true;
+      if (n < i * i)
+        return false;
     }
     return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController Tcontroller = new TextEditingController();
+    final TextEditingController tcontroller = TextEditingController();
     return Form(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Number Shapes',
             //  style: TextStyle(color: Colors.white),
           ),
@@ -67,8 +75,8 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 'Please input a number to see if it is a square or a cube.',
                 style: TextStyle(height: 1, fontSize: 23.5),
@@ -77,20 +85,19 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                controller: Tcontroller,
-                keyboardType: TextInputType.numberWithOptions(),
-                onChanged: (value) {
+                controller: tcontroller,
+                keyboardType: const TextInputType.numberWithOptions(),
+                onChanged: (String value) {
                   number = int.parse(value);
 
                   if (isCube(number) == true)
-                    popUpMessage = 'Number ${number} is CUBE.';
+                    popUpMessage = 'Number $number is CUBE.';
                   if (isSquare(number) == true)
-                    popUpMessage = 'Number ${number} is SQUARE.';
+                    popUpMessage = 'Number $number is SQUARE.';
                   if (isSquare(number) == true && isCube(number) == true)
-                    popUpMessage = 'Number ${number} is both SQUARE and CUBE.';
+                    popUpMessage = 'Number $number is both SQUARE and CUBE.';
                   if (isSquare(number) == false && isCube(number) == false)
-                    popUpMessage =
-                        'Number ${number} is neither SQUARE nor CUBE.';
+                    popUpMessage = 'Number $number is neither SQUARE nor CUBE.';
 
                   print(number);
                 },
@@ -100,17 +107,17 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Tcontroller.clear();
+            tcontroller.clear();
 
-            return showDialog(
+            return showDialog<void>(
               context: context,
-              builder: (ctx) => AlertDialog(
+              builder: (BuildContext ctx) => AlertDialog(
                 title: Text(number.toString()),
                 content: Text(popUpMessage),
               ),
             );
           },
-          child: Icon(Icons.check),
+          child: const Icon(Icons.check),
           backgroundColor: Colors.blue,
         ),
       ),
